@@ -1,4 +1,5 @@
 from utils import *
+import numpy as np
 
 
 class ChainedHashTable:
@@ -8,7 +9,7 @@ class ChainedHashTable:
         else:
             self.size = length
         print "Hash table size:", self.size
-        self.table = [LinkedList()] * self.size
+        self.table = np.array([LinkedList()] * self.size)
 
     def search(self, item):
         position = item % self.size
@@ -43,7 +44,7 @@ class OpenHashTable:
         else:
             self.size = length
         print "Hash table size:", self.size
-        self.table = [None] * self.size
+        self.table = np.array([None] * self.size)
 
     def search(self, item):
         index = item % self.size
@@ -59,7 +60,7 @@ class OpenHashTable:
         index = item % self.size
         i = 0
         while i < self.size:
-            if self.table[index] is None or self.table[index] is "DELETED":
+            if self.table[index] is None or self.table[index] is -1:  # -1 is the DELETED special value
                 self.table[index] = item
                 return index
             i += 1
@@ -70,7 +71,7 @@ class OpenHashTable:
     def delete(self, item):
         search_result = self.search(item)
         if search_result is not None:
-            self.table[search_result] = "DELETED"
+            self.table[search_result] = -1  # using -1 as DELETED special value
             return search_result
         print "No elements deleted"
         return None

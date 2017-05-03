@@ -1,10 +1,11 @@
 import pickle
 import hash
 import random
+import numpy as np
 
 
 def random_generate(values_amount, values_range):
-    values = [None] * values_amount
+    values = np.array([None] * values_amount)
     for i in xrange(values_amount):
         values[i] = random.randint(values_range[0], values_range[1])
     return values
@@ -12,7 +13,7 @@ def random_generate(values_amount, values_range):
 
 def test_chained(test_input):
     hash_table_size = test_input[0]
-    percents = test_input[1]
+    percents = np.array(test_input[1])
 
     chained_hash_table = hash.ChainedHashTable(hash_table_size)
     hash_table_size = chained_hash_table.size
