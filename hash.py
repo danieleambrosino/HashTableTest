@@ -10,6 +10,7 @@ class ChainedHashTable:
             self.size = length
         print "Hash table size:", self.size
         self.table = np.array([LinkedList()] * self.size)
+        self.collision_counter = 0
 
     def search(self, item):
         position = item % self.size
@@ -17,6 +18,8 @@ class ChainedHashTable:
 
     def insert(self, item):
         position = item % self.size
+        if not self.table[position].is_empty():
+            self.collision_counter += 1
         self.table[position].add(item)
 
     def delete(self, item):
@@ -45,6 +48,9 @@ class OpenHashTable:
             self.size = length
         print "Hash table size:", self.size
         self.table = np.array([None] * self.size)
+        self.collision_counter = 0
+        self.max_inspection_length = 0
+        self.min_inspection_length = 0
 
     def search(self, item):
         index = item % self.size
@@ -58,13 +64,23 @@ class OpenHashTable:
 
     def insert(self, item):
         index = item % self.size
-        i = 0
-        while i < self.size:
+        inspection_counter = 0
+
+        while inspection_counter < self.size:
             if self.table[index] is None or self.table[index] is -1:  # -1 is the DELETED special value
                 self.table[index] = item
                 return index
-            i += 1
+            inspection_counter += 1
+
+            # update class attributes
+            self.collision_counter += 1
+            if inspection_counter > self.max_inspection_length:
+                self.max_inspection_length = inspection_counter
+            elif inspection_counter < self.min_inspection_length:
+                self.min_inspection_length = inspection_counter
+
             index = (index + 1) % self.size
+
         print "Hash table overflow"
         return None
 
