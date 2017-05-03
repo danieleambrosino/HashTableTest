@@ -27,6 +27,7 @@ def test_chained(test_input):
             for value in values_to_insert:
                 chained_hash_table.insert(value)
             collisions.append(chained_hash_table.collision_counter)
+            chained_hash_table.clear()
 
         # for each percent group, store max, min and average collision number
         max_collision = max(collisions)

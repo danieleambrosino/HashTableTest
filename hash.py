@@ -27,6 +27,10 @@ class ChainedHashTable:
         if self.search(item):
             self.table[position].remove(item)
 
+    def clear(self):
+        self.table = np.array([LinkedList()] * self.size)
+        self.collision_counter = 0
+
     @staticmethod
     def lesser_prime_number(number):
         result = number - 1
