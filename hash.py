@@ -9,7 +9,9 @@ class ChainedHashTable:
         else:
             self.size = length
         print "Hash table size:", self.size
-        self.table = np.array([LinkedList()] * self.size)
+        self.table = np.array([])
+        for i in xrange(self.size):
+            self.table = np.hstack((self.table, LinkedList()))
         self.collision_counter = 0
 
     def search(self, item):
@@ -18,9 +20,11 @@ class ChainedHashTable:
 
     def insert(self, item):
         position = item % self.size
-        if not self.table[position].is_empty():
+        current_list = self.table[position]
+        if not current_list.is_empty():
             self.collision_counter += 1
-        self.table[position].add(item)
+
+        current_list.add(item)
 
     def delete(self, item):
         position = item % item
@@ -28,7 +32,9 @@ class ChainedHashTable:
             self.table[position].remove(item)
 
     def clear(self):
-        self.table = np.array([LinkedList()] * self.size)
+        self.table = np.array([])
+        for i in xrange(self.size):
+            self.table = np.hstack((self.table, LinkedList()))
         self.collision_counter = 0
 
     @staticmethod
