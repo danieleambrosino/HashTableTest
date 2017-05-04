@@ -2,11 +2,13 @@ from linked_list import *
 
 
 def is_prime(number):
-    divisor = number - 1
-    while divisor > 0:
+    if number in range(0, 3):
+        return True
+    divisor = 2
+    while divisor < number:
         if number % divisor == 0:
             return False
-        divisor -= 1
+        divisor += 1
     return True
 
 
