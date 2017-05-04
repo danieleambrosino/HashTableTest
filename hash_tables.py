@@ -1,5 +1,14 @@
-from utils import *
+from linked_list import *
 import numpy as np
+
+
+def is_prime(number):
+    divisor = number - 1
+    while divisor > 0:
+        if number % divisor == 0:
+            return False
+        divisor -= 1
+    return True
 
 
 class ChainedHashTable:
