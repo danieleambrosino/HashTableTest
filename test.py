@@ -1,44 +1,88 @@
 import pickle
-import hash
+import hash_tables
 import random
 import numpy as np
 
 
-def random_generate(values_amount, values_range):
+def random_generate(values_amount, values_max):
     values = np.array([None] * values_amount)
     for i in xrange(values_amount):
-        values[i] = random.randint(values_range[0], values_range[1])
+        values[i] = random.randint(0, values_max)
     return values
 
 
 def test_chained(test_input):
     table_size = test_input[0]
-    percents = np.array(test_input[1])
+    percents = test_input[1]
 
-    table = hash.ChainedHashTable(table_size)
+    table = hash_tables.ChainedHashTable(table_size)
     table_size = table.size
 
     collisions = []
-    collisions_summary = {}
+    summary = np.array([[0, 0, 0]])
 
     for percent in percents:
-        for i in xrange(20):  # Insertion tests
-            values_to_insert = random_generate(table_size * percent, (0, 100 * table_size))
+        for i in xrange(20):
+            values_to_insert = random_generate(table_size * percent / 100, table_size * 100)
             for value in values_to_insert:
                 table.insert(value)
             collisions.append(table.collision_counter)
             table.clear()
 
-        # for each percent group, store max, min and average collision number
         max_collision = max(collisions)
         min_collision = min(collisions)
         avg_collision = (max_collision + min_collision) / 2
-        collisions_summary[percent] = (max_collision, min_collision, avg_collision)
+
+        summary = np.append(summary, [[min_collision, avg_collision, max_collision]], axis=0)
+        collisions = []
+
+    summary = np.delete(summary, 0, 0)
+    print summary
+    return summary
+
+
+def test_open(test_input):
+    table_size = test_input[0]
+    percents = np.array(test_input[1])
+
+    table = hash_tables.OpenHashTable(table_size)
+    table_size = table.size
+
+    collisions = []
+    inspection_sequence_lengths = []
+
+    summary = {}
+
+    for percent in percents:
+        for i in xrange(20):
+            # generating random values to be inserted
+            values_to_insert = random_generate(table_size * percent, 100 * table_size)
+
+            # inserting random values in hash table
+            for value in values_to_insert:
+                table.insert(value)
+
+            collisions.append(table.collision_counter)
+            inspections_sequence_lengths.append(table.max_inspection_length)
+            table.clear()
+
+        max_collision = max(collisions)
+        min_collision = min(collisions)
+        avg_collision = (max_collision + min_collision) / 2
+
+        summary[percent] = (max_collision, min_collision, avg_collision)
         del collisions[:]
 
-    pickle.dump(collisions_summary, open("test_chained.pickle", "wb"))
+    return summary
 
 
 def start_tests():
     test_input = pickle.load(open("test_input.pickle", "rb"))
-    test_chained(test_input)
+
+    chained_results = test_chained(test_input)
+    # open_results = test_open(test_input)
+
+    result_file = open("test_result.pickle", "wb")
+    pickle.dump(chained_results, result_file)
+    # pickle.dump(open_results, result_file)
+    result_file.close()

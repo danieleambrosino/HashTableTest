@@ -8,9 +8,10 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    def insert(self, item):
-        item.next = self.head
-        self.head = item
+    def insert(self, value):
+        new_item = Node(value)
+        new_item.next = self.head
+        self.head = new_item
 
     def is_empty(self):
         return self.head is None

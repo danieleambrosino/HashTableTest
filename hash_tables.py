@@ -34,7 +34,7 @@ class ChainedHashTable:
         if not current_list.is_empty():
             self.collision_counter += 1
 
-        current_list.add(item)
+        current_list.insert(item)
 
     def remove(self, item):
         position = item % self.size
