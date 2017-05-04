@@ -37,7 +37,6 @@ def test_chained(test_input):
         collisions = []
 
     summary = np.delete(summary, 0, 0)
-    print summary
     return summary
 
 
