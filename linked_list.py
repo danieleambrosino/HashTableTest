@@ -8,7 +8,7 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    def add(self, item):
+    def insert(self, item):
         item.next = self.head
         self.head = item
 
@@ -40,7 +40,7 @@ class LinkedList:
         while not found:
             if current.value == item:
                 found = True
-            elif current.value is None:
+            elif current.next is None:
                 return
             else:
                 previous = current
