@@ -86,3 +86,4 @@ def start_tests():
     pickle.dump(chained_results, result_file)
     # pickle.dump(open_results, result_file)
     result_file.close()
+
