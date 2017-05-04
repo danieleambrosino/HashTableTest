@@ -22,6 +22,7 @@ y_max = results[:, 2]
 plt.plot(x_axis, y_min)
 plt.plot(x_axis, y_avg)
 plt.plot(x_axis, y_max)
+
 plt.xlabel('Load percentage')
 plt.ylabel('Collisions number')
 plt.legend(['Minimum', 'Average', 'Maximum'])
