@@ -12,12 +12,12 @@ pickle.dump(test_values, open("test_input.pickle", "wb"))
 
 start_tests()
 
-results = pickle.load(open("test_result.pickle", "rb"))
+chained_results = pickle.load(open("test_result.pickle", "rb"))
 
 x_axis = percents
-y_min = results[:, 0]
-y_avg = results[:, 1]
-y_max = results[:, 2]
+y_min = chained_results[:, 0]
+y_avg = chained_results[:, 1]
+y_max = chained_results[:, 2]
 
 plt.plot(x_axis, y_min)
 plt.plot(x_axis, y_avg)
