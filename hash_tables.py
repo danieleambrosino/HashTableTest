@@ -48,15 +48,9 @@ class ChainedHashTable:
 
     @staticmethod
     def lesser_prime_number(number):
-        result = number - 1
-        while result > 0:
-            denominator = result - 1
-            while result % denominator != 0:
-                denominator -= 1
-            if denominator == 1:
-                return result
-            result -= 1
-        return result
+        while not is_prime(number):
+            number -= 1
+        return number
 
 
 class OpenHashTable:
@@ -115,11 +109,6 @@ class OpenHashTable:
 
     @staticmethod
     def greater_prime_number(number):
-        result = number + 1
-        while True:
-            denominator = result - 1
-            while result % denominator != 0:
-                denominator -= 1
-            if denominator == 1:
-                return result
-            result += 1
+        while not is_prime(number):
+            number += 1
+        return number
