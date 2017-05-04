@@ -57,6 +57,7 @@ class OpenHashTable:
         else:
             self.size = length
         print "Hash table size:", self.size
+
         self.table = np.array([None] * self.size)
         self.collision_counter = 0
         self.max_inspection_length = 0
@@ -101,6 +102,12 @@ class OpenHashTable:
             return search_result
         print "No elements deleted"
         return None
+
+    def clear(self):
+        self.table = [None] * self.size
+        self.collision_counter = 0
+        self.max_inspection_length = 0
+        self.min_inspection_length = 0
 
     @staticmethod
     def greater_prime_number(number):
