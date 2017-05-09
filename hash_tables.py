@@ -56,6 +56,8 @@ class ChainedHashTable:
 
 
 class OpenHashTable:
+    # -1 is the "DELETED" special value
+
     def __init__(self, length):
         if not is_prime(length):
             self.size = self.greater_prime_number(length)
