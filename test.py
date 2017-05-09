@@ -26,7 +26,7 @@ def test_chained(test_input):
 
         max_collision = max(collisions)
         min_collision = min(collisions)
-        avg_collision = (max_collision + min_collision) / 2
+        avg_collision = sum(collisions) / len(collisions)
 
         summary = np.append(summary, [[min_collision, avg_collision, max_collision]], axis=0)
         collisions = []
@@ -63,7 +63,7 @@ def test_open(test_input):
 
         max_collision = max(collisions)
         min_collision = min(collisions)
-        avg_collision = (max_collision + min_collision) / 2
+        avg_collision = sum(collisions) / len(collisions)
 
         max_inspection = max(inspection_sequence_lengths)
         min_inspection = min(inspection_sequence_lengths)
