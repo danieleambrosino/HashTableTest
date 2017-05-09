@@ -1,14 +1,16 @@
 from linked_list import *
+from math import sqrt
 
 
 def is_prime(number):
-    if number in range(0, 3):
+    if number == 2:
         return True
-    divisor = 2
-    while divisor < number:
+    if number <= 1 or number % 2 == 0:
+        return False
+    square_root = int(sqrt(number)) + 1
+    for divisor in xrange(3, square_root, 2):
         if number % divisor == 0:
             return False
-        divisor += 1
     return True
 
 
