@@ -43,9 +43,9 @@ class ChainedHashTable:
         self.table[position].remove(item)
 
     def clear(self):
-        self.table = []
+        self.table = [None] * self.size
         for i in xrange(self.size):
-            self.table.append(LinkedList())
+            self.table[i] = LinkedList()
         self.collision_counter = 0
 
     @staticmethod
