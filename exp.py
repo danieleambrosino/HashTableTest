@@ -31,6 +31,8 @@ plt.plot(x_axis, y_max)
 plt.xlabel('Load percentage')
 plt.ylabel('Collisions number')
 plt.legend(['Minimum', 'Average', 'Maximum'], loc=2)
+fig = plt.gcf()
+fig.canvas.set_window_title('Chained hash table collisions')
 plt.show()
 
 # Open hash table collisions plot
@@ -45,6 +47,7 @@ plt.plot(x_axis, y_max)
 plt.xlabel('Load percentage')
 plt.ylabel('Collisions number')
 plt.legend(['Minimum', 'Average', 'Maximum'], loc=2)
+fig.canvas.set_window_title('Open hash table collisions')
 plt.show()
 
 # Open hash table inspection lengths
@@ -59,4 +62,5 @@ plt.plot(x_axis, y_max)
 plt.xlabel('Load percentage')
 plt.ylabel('Inspection sequence length')
 plt.legend(['Minimum', 'Average', 'Maximum'], loc=2)
+fig.canvas.set_window_title('Open hash table inspections length')
 plt.show()
