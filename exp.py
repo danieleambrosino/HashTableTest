@@ -8,11 +8,11 @@ percents = (10, 20, 30, 40, 50, 60, 70, 75, 80, 85, 87, 89, 90, 91, 92, 93, 94, 
 
 test_values = (hash_table_size, percents)
 
-pickle.dump(test_values, open("test_input.pickle", "wb"))
+pickle.dump(test_values, open("test_input.pickle", "w"))
 
 start_tests()
 
-results = open("test_result.pickle", "rb")
+results = open("test_result.pickle", "r")
 chained_results = pickle.load(results)
 open_results = pickle.load(results)
 open_collisions = open_results[0]
