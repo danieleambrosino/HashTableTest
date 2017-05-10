@@ -68,8 +68,8 @@ class OpenHashTable:
             self.size = length
 
         self.table = [None] * self.size
-        self.collision_counter = 0
-        self.inspection_counter = 0
+        self.collisions_counter = 0
+        self.inspections = []
 
     def search(self, item):
         index = item % self.size
@@ -83,20 +83,16 @@ class OpenHashTable:
 
     def insert(self, item):
         index = item % self.size
-        if self.table[index] is None or self.table[index] is -1:
-            self.table[index] = item
-            return index
-
-        self.collision_counter += 1
-        inspection = 0
-        while inspection < self.size:
+        inspections = 0
+        while inspections < self.size:
             if self.table[index] is None or self.table[index] is -1:
                 self.table[index] = item
+                self.inspections.append(inspections)
                 return index
             else:
-                self.inspection_counter += 1
+                self.collisions_counter += 1
                 index = (index + 1) % self.size
-                inspection += 1
+                inspections += 1
 
         print "Hash table overflow!"
         return None
@@ -110,8 +106,8 @@ class OpenHashTable:
 
     def clear(self):
         self.table = [None] * self.size
-        self.collision_counter = 0
-        self.inspection_counter = 0
+        self.collisions_counter = 0
+        self.inspections = []
 
     @staticmethod
     def greater_prime_number(number):

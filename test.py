@@ -57,17 +57,17 @@ def test_open(test_input):
             for value in values_to_insert:
                 table.insert(value)
 
-            collisions.append(table.collision_counter)
-            inspection_sequence_lengths.append(table.inspection_counter)
+            collisions.append(table.collisions_counter)
+            inspection_sequence_lengths.append(table.inspections[:])
             table.clear()
 
         max_collision = max(collisions)
         min_collision = min(collisions)
         avg_collision = sum(collisions) / len(collisions)
 
-        max_inspection = max(inspection_sequence_lengths)
-        min_inspection = min(inspection_sequence_lengths)
-        avg_inspection = (max_inspection + min_inspection) / 2
+        max_inspection = max(max(v) for v in inspection_sequence_lengths)
+        min_inspection = min(min(v) for v in inspection_sequence_lengths)
+        avg_inspection = sum(sum(v) / len(v) for v in inspection_sequence_lengths) / len(inspection_sequence_lengths)
 
         collisions_summary = np.append(collisions_summary, [[min_collision, avg_collision, max_collision]], axis=0)
         inspections_summary = np.append(inspections_summary, [[min_inspection, avg_inspection, max_inspection]], axis=0)
